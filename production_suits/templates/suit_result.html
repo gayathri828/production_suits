@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suit Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        .result-group {
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Suggested Suit</h2>
+    <p><strong>Suit Name:</strong> {{ predicted_suit_name }}</p>
+
+    <h3>Selected Features:</h3>
+    <ul>
+        <li>Fireproof: {{ features.fireproof }}</li>
+        <li>Waterproof: {{ features.waterproof }}</li>
+        <li>Gas Resistance: {{ features.gas_resistance }}</li>
+        <li>Chemical Resistance: {{ features.chemical_resistance }}</li>
+        <li>Germ Resistance: {{ features.germ_resistance }}</li>
+        <li>Bulletproof: {{ features.bulletproof }}</li>
+    </ul>
+
+    <h3>Total Price: ${{ total_price }}</h3>
+</div>
+<form method="POST" action="{% url 'place_order' %}">
+    {% csrf_token %}
+    <!-- Hidden fields to send the feature values to place_order -->
+    <input type="hidden" name="fireproof" value="{{ features.fireproof }}">
+    <input type="hidden" name="waterproof" value="{{ features.waterproof }}">
+    <input type="hidden" name="gas_resistance" value="{{ features.gas_resistance }}">
+    <input type="hidden" name="chemical_resistance" value="{{ features.chemical_resistance }}">
+    <input type="hidden" name="germ_resistance" value="{{ features.germ_resistance }}">
+    <input type="hidden" name="bulletproof" value="{{ features.bulletproof }}">
+<div class="button-group">
+    <a href="/suits/customize/">Modify Selection</a>
+    <a href="/suits/orders/confirmation">Proceed to Order Confirmation</a>
+</div>
+</form>
+</body>
+</html>

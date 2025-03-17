@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            text-align: center;
+        }
+        .result-group {
+            margin-bottom: 15px;
+        }
+        .order-details {
+            margin-bottom: 30px;
+        }
+        .order-details p {
+            font-size: 16px;
+        }
+        .button-group {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Order Confirmation</h2>
+
+    <!-- Customer Information -->
+    <div class="order-details">
+        <h3>Customer Information</h3>
+        <p><strong>Name:</strong> {{ customer_name }}</p>
+    </div>
+
+    <!-- Suit Details -->
+    <div class="order-details">
+        <h3>Suit Details</h3>
+        <p><strong>Suit Name:</strong> {{ predicted_suit_name }}</p>
+
+
+    </div>
+
+    <!-- Order Price -->
+    <div class="order-details">
+        <h3>Total Price: ${{ total_price }}</h3>
+        <p><strong>Order Date:</strong> {{ order_date }}</p>
+            <p><strong>Order Status:</strong> {{ order_status }}</p>
+
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="button-group">
+        {% if order_status == "Pending" %}
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit">Confirm Order</button>
+        </form>
+    {% endif %}
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    <div>
+        {% if order_status != "Confirmed" %}
+            <a href="/suits/customize/">Modify Selection</a>
+        {% endif %}
+        <a href="/suits/customize/">Place Another Order</a>
+    </div>
+    </div>
+</div>
+
+</body>
+</html>
