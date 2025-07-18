@@ -1,0 +1,22 @@
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*.sqlite3
+
+# Django stuff
+db.sqlite3
+/media
+/staticfiles
+
+# Virtual environment
+venv/
+env/
+
+# IDE and OS files
+.idea/
+.vscode/
+*.log
+.DS_Store
+
+# Node modules (if using)
+node_modules/
