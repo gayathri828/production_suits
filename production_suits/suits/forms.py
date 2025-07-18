@@ -8,7 +8,12 @@ class UserRegistrationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password',]
+        fields = ['username', 'email', 'password']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control', 'placeholder': field.label})
 
     def clean(self):
         cleaned_data = super().clean()
@@ -20,7 +25,13 @@ class UserRegistrationForm(forms.ModelForm):
 
         return cleaned_data
 
+
 class CustomerDetailsForm(forms.ModelForm):
     class Meta:
         model = Customer
-        fields = ["first_name" ,'last_name', 'phone_number', 'address']
+        fields = ["first_name", "last_name", "phone_number", "address"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            field.widget.attrs.update({'class': 'form-control', 'placeholder': field.label})
